@@ -59,14 +59,7 @@ namespace TxtRPG
 
         }
 
-        // 다른곳에서 불러올때 요렇게 활용 참조
-        public void ShowItems()
-        {
-            foreach (Item item in Item_List.item_list)
-            {
-                Console.WriteLine($"아이템 이름: {item.name}, 설명: {item.ex}");
-            }
-        }
+    
 
     }
 }

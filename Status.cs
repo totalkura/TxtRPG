@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Reflection.Emit;
 
 namespace TxtRPG
 {
@@ -9,15 +10,17 @@ namespace TxtRPG
         // 싱글톤 인스턴스 초기화
         public static Player Instance => _instance ??= new Player();
         public int level { get; set; }
-        public int att { get; set; }
-        public int add_att { get; set; }
-        public int def { get; set; }
-        public int add_def { get; set; }
+        public float att { get; set; }
+        public float add_att { get; set; }
+        public float def { get; set; }
+        public float add_def { get; set; }
         public int gold { get; set; }
         public float max_hp { get; set; }
         public float now_hp { get; set; }
         public string job { get; set; }
-        
+        public bool att_we { get; set; }
+        public bool def_def { get; set; }
+        public int exp { get; set; }
         private Player() { }
     }
 
@@ -80,12 +83,30 @@ namespace TxtRPG
         public void Player_Status()
         {
             Player.Instance.level = 1;
+            Player.Instance.exp = 0;
             Player.Instance.max_hp = 100;
             Player.Instance.now_hp = 100;
             Player.Instance.att = 10;
             Player.Instance.def = 5;
-            Player.Instance.gold = 1500;
+            Player.Instance.gold = 10500;
             Player.Instance.job = "무직";
+            Player.Instance.att_we = false;
+            Player.Instance.def_def = false;
+        }
+
+        public void Player_LevelUp()
+        {
+            Player.Instance.level += 1;
+            Player.Instance.att += 0.5f;
+            Player.Instance.def += 1f;
+        }
+
+        public void Player_Exp(int a)
+        {
+
+            for (int i = 1; i < 10; i++)
+                if(Player.Instance.exp > (30*i) && Player.Instance.level == i) 
+                    Player_LevelUp();
         }
     }
 

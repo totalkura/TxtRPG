@@ -13,6 +13,7 @@
             Status status = new Status();
             Stroe store = new Stroe();
             Inn inn = new Inn();
+            Dungeon dungeon = new Dungeon();
 
             status.Player_Status();
 
@@ -27,7 +28,8 @@
                 Console.WriteLine("1. 상태 보기");
                 Console.WriteLine("2. 인벤토리");
                 Console.WriteLine("3. 상점");
-                Console.WriteLine("4. 여관\n");
+                Console.WriteLine("4. 여관");
+                Console.WriteLine("5. 던전 입구\n");
                 Console.Write("원하시는 행동을 입력해주세요\n>> ");
 
                 set = Console.ReadLine();
@@ -37,7 +39,7 @@
                     select = int.Parse(set);
                 }
 
-                if (select == 0) break;
+                //if (select == 0) break;
 
                 switch (select)
                 {
@@ -61,6 +63,10 @@
                         Console.Clear();
                         break;
 
+                    case 5:
+                        dungeon.dungeon_view();
+                        Console.Clear();
+                        break;
                     default:
                         OutRangeError.check();
                         continue;

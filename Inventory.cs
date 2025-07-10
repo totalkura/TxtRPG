@@ -73,7 +73,6 @@ namespace TxtRPG
                             Console.WriteLine(" [ E ]");
                             Console.ResetColor();
                         }
-
                         else
                             Console.WriteLine($"{count}. {item.name} | 방어력 +{item.def} | {item.ex} ");
                     }
@@ -105,9 +104,15 @@ namespace TxtRPG
 
                 switch (select)
                 {
-                    case 1: equip_set(0); break;
-                    case 2: equip_set(1); break;
-                    case 3: equip_set(2); break;
+                    case 1: equip(0); break;
+                    case 2: equip(1); break;
+                    case 3: equip(2); break;
+                    case 4: equip(3); break;
+                    case 5: equip(4); break;
+                    case 6: equip(5); break;
+                    case 7: equip(6); break;
+                    case 8: equip(7); break;
+                    case 9: equip(8); break;
                     default:
                         OutRangeError.check();
                         continue;
@@ -115,24 +120,64 @@ namespace TxtRPG
             }
         }
 
-        private void equip_set(int a)
+        private void equip(int a)
         {
-            if (Item_List.inventory.Count > a && Item_List.inventory[a] != null)
+            //인벤토리 비어있는거 확인
+            if (Item_List.inventory.Count > a)
             {
-                if (!Item_List.inventory[a].equip)
-                {
-                    Item_List.inventory[a].equip = true;
-
-                    if (Item_List.inventory[a].att != 0)
+                //인벤토리 장비 안되어있는거 확인
+                if (!Item_List.inventory[a].equip )
+                {   
+                    //공격력 0 아닌거 확인 
+                    if (Item_List.inventory[a].att != 0 )
                     {
+                        //플레이어 무기 장착 확인
+                        if (Player.Instance.att_we)
+                        {
+                            for (int i = 0; i < Item_List.inventory.Count; ++i)
+                            {
+                                //인벤토리 i번째 장착중인지 확인
+                                if (Item_List.inventory[i].equip && Item_List.inventory[i].att != 0)
+                                {
+                                    //장착 false / 플레이어 공격력,추가공격력 정상화
+                                    Item_List.inventory[i].equip = false;
+                                    Player.Instance.att -= Item_List.inventory[i].att;
+                                    Player.Instance.add_att -= Item_List.inventory[i].att;
+                                }
+                            }
+                        }
+                        //플레이어 무기 장착여부 On / 플레이어 공격력, 추가공격력 + (인벤토리 a번째꺼만큼)
+                        Player.Instance.att_we = true;
                         Player.Instance.att += Item_List.inventory[a].att;
                         Player.Instance.add_att += Item_List.inventory[a].att;
+                      
                     }
-                    else if (Item_List.inventory[a].def != 0)
+                    //방어력 0 아닌거 확인 
+                    else if (Item_List.inventory[a].def != 0 )
                     {
+                        //플레이어 방어구 장착 확인
+                        if (Player.Instance.def_def)
+                        {
+                            for (int i = 0; i < Item_List.inventory.Count; ++i)
+                            {
+                                //인벤토리 i번째 장착중인지 확인
+                                if (Item_List.inventory[i].equip && Item_List.inventory[i].def != 0)
+                                {
+                                    //장착 false / 플레이어 공격력,추가공격력 정상화
+                                    Item_List.inventory[i].equip = false;
+                                    Player.Instance.def -= Item_List.inventory[i].def;
+                                    Player.Instance.add_def -= Item_List.inventory[i].def;
+                                }
+                            }
+                        }
+                        //플레이어 방어구 장착여부 On / 플레이어 방어력, 추가방어력 + (인벤토리 a번째꺼만큼)
+                        Player.Instance.def_def = true;
                         Player.Instance.def += Item_List.inventory[a].def;
                         Player.Instance.add_def += Item_List.inventory[a].def;
+                        
                     }
+                    //인벤토리 a번째 창착 On
+                    Item_List.inventory[a].equip = true;
 
                     Console.ForegroundColor = ConsoleColor.Blue;
                     Console.WriteLine("장착이 완료되었습니다");
@@ -141,13 +186,15 @@ namespace TxtRPG
                 {
                     Item_List.inventory[a].equip = false;
 
-                    if (Item_List.inventory[a].att != 0)
+                    if (Item_List.inventory[a].att != 0 && Player.Instance.att_we)
                     {
+                        Player.Instance.att_we = false;
                         Player.Instance.att -= Item_List.inventory[a].att;
                         Player.Instance.add_att -= Item_List.inventory[a].att;
                     }
-                    else if (Item_List.inventory[a].def != 0)
+                    else if (Item_List.inventory[a].def != 0 && Player.Instance.def_def)
                     {
+                        Player.Instance.def_def = false;
                         Player.Instance.def -= Item_List.inventory[a].def;
                         Player.Instance.add_def -= Item_List.inventory[a].def;
                     }
@@ -155,16 +202,15 @@ namespace TxtRPG
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.WriteLine("장착이 해제되었습니다");
                 }
- 
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("인벤토리에 아무것도 없습니다");
+
+                
+
             }
             Console.ResetColor();
             Thread.Sleep(750);
 
         }
+
+
     }
 }

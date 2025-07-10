@@ -8,7 +8,7 @@ namespace TxtRPG
         int select = 0;
         string set="";
 
-        int check_chat = 0;
+        int check_chat = -1;
 
         string[] sans_normal = {
     "░░░░░░░░░░▄██████████████████▄░░░░░░░░░░░░",
@@ -86,19 +86,10 @@ namespace TxtRPG
                 Console.ForegroundColor = ConsoleColor.DarkYellow;
                 Console.WriteLine("< 여관 >");
                 Console.ResetColor();
-                
 
+                color_check = check_chat != 3 ? false : true;
+                color(color_check);
 
-                if (check_chat != 3)
-                {
-                    color_check = false;
-                    color(color_check);
-                }
-                else
-                {
-                    color_check = true;
-                    color(color_check);
-                }
                 SlowWriteLine();
 
                 Console.WriteLine();
@@ -109,7 +100,7 @@ namespace TxtRPG
 
                 Console.ResetColor();
 
-                Console.WriteLine("\n1. 숙박하기 ( -300 gold )");
+                Console.WriteLine("\n1. 숙박하기 ( -300 gold | HP 100 회복)");
                 Console.WriteLine("0. 나가기\n");
 
                 Console.Write("원하시는 행동을 입력해 주세요.\n>>");
@@ -127,6 +118,7 @@ namespace TxtRPG
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Gold가 부족합니다");
+                            check_chat++;
                         }
                         else if (Player.Instance.now_hp == Player.Instance.max_hp)
                         {
@@ -135,9 +127,10 @@ namespace TxtRPG
                         }
                         else
                         {
+                            Player.Instance.gold -= 300;
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Player.Instance.now_hp = Player.Instance.max_hp;
-                            Console.WriteLine("HP를 전부 회복하였습니다");
+                            Player.Instance.now_hp += Player.Instance.now_hp > Player.Instance.max_hp ? Player.Instance.now_hp :0 ;
+                            Console.WriteLine("HP를 100 회복하였습니다");
                         }
                         Console.ResetColor();
                         Thread.Sleep(750);
@@ -157,14 +150,15 @@ namespace TxtRPG
         {
             Console.SetCursorPosition(85, 1);
             string text = "";
-            int delay = 180;
+            int delay = 40;
             switch (check_chat)
             {
+                case -1: text = "..."; delay -= 40; break;
                 case 0: text = "정말 아름다운 날이야\n"; break;
-                case 1: text = "새들은 지저귀고, 꽃들은 피어나고..\n"; delay -= 40; break;
-                case 2: text = "이런 날엔, 너 같은 Player 들은..\n"; delay -= 60; break;
-                case 3: text = "지옥에서 불타고 있어야 하는데\n"; delay -= 80; break;
-                default: text = "..."; delay -= 180;  break;
+                case 1: text = "새들은 지저귀고, 꽃들은 피어나고..\n"; break;
+                case 2: text = "이런 날엔, 너 같은 Player 들은..\n"; break;
+                case 3: text = "지옥에서 불타고 있어야 하는데\n";  break;
+                default: text = "..."; delay -=40;  break;
             }
             foreach (char c in text)
             {
@@ -172,7 +166,7 @@ namespace TxtRPG
                 Thread.Sleep(delay);
             }
             Console.WriteLine();
-            check_chat++;
+            
             Console.SetCursorPosition(0, 1);
         }
 
