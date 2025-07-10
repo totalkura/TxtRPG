@@ -22,6 +22,8 @@ namespace TxtRPG
         public bool def_def { get; set; }
         public int exp { get; set; }
         private Player() { }
+
+
     }
 
     internal class Status
@@ -57,7 +59,8 @@ namespace TxtRPG
                     Console.WriteLine($"방어력 : {Player.Instance.def}");
 
                 Console.WriteLine($"체  력 : {Player.Instance.now_hp} / {Player.Instance.max_hp} ");
-                Console.WriteLine($"Gold : {Player.Instance.gold}\n");
+                Console.WriteLine($"Gold : {Player.Instance.gold}");
+                Console.WriteLine($"Exp : {Player.Instance.exp}\n");
 
                 Console.WriteLine("0. 나가기\n");
 
@@ -99,14 +102,26 @@ namespace TxtRPG
             Player.Instance.level += 1;
             Player.Instance.att += 0.5f;
             Player.Instance.def += 1f;
+            Player.Instance.max_hp += 10f;
+            Console.WriteLine($"\n 레벨업! | {Player.Instance.level -1 } => {Player.Instance.level}");
+            Console.WriteLine($"\n 체력 + 10");
+            Console.WriteLine($" 공격력 + 0.5");
+            Console.WriteLine($" 방어력 + 1");
         }
 
-        public void Player_Exp(int a)
+        public void Player_Exp()
         {
 
             for (int i = 1; i < 10; i++)
-                if(Player.Instance.exp > (30*i) && Player.Instance.level == i) 
+                if(Player.Instance.exp >= (30*i) && i >= Player.Instance.level)  
                     Player_LevelUp();
+            
+        }
+
+        public void Player_Dungeon_Clear(int gold, int exp)
+        {
+            Player.Instance.gold += gold;
+            Player.Instance.exp += exp;
         }
     }
 

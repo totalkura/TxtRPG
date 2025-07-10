@@ -129,11 +129,13 @@ namespace TxtRPG
                         {
                             Player.Instance.gold -= 300;
                             Console.ForegroundColor = ConsoleColor.Yellow;
-                            Player.Instance.now_hp += Player.Instance.now_hp > Player.Instance.max_hp ? Player.Instance.now_hp :0 ;
+                            Player.Instance.now_hp += 100;
+                            Player.Instance.now_hp = Player.Instance.now_hp > Player.Instance.max_hp ? Player.Instance.max_hp : Player.Instance.now_hp;
                             Console.WriteLine("HP를 100 회복하였습니다");
+                            Console.WriteLine($"현재 HP : {Player.Instance.now_hp} / {Player.Instance.max_hp}");
                         }
                         Console.ResetColor();
-                        Thread.Sleep(750);
+                        Thread.Sleep(1500);
                         break;
                     default:
                         OutRangeError.check();

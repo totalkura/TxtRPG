@@ -1,19 +1,25 @@
-﻿namespace TxtRPG
+﻿using System.Runtime.CompilerServices;
+
+namespace TxtRPG
 
 {
     internal class Main_Stage
     {
+        private static Main_Stage instance;
+
+        public  static Inventory inventory = new Inventory();
+        public static Status status = new Status();
+        public static Stroe store = new Stroe();
+        public static Inn inn = new Inn();
+        public static Dungeon dungeon = new Dungeon();
+
         static void Main()
         {
-
+            
             int select = 0;
             string set = "";
 
-            Inventory inventory = new Inventory();
-            Status status = new Status();
-            Stroe store = new Stroe();
-            Inn inn = new Inn();
-            Dungeon dungeon = new Dungeon();
+
 
             status.Player_Status();
 
