@@ -167,9 +167,11 @@ namespace TxtRPG
 
             Main_Stage.status.Player_Dungeon_Clear(golds, exps);
             Main_Stage.status.Player_Exp();
-            
 
-            Thread.Sleep(5000);
+            Console.WriteLine("- 자동 저장됩니다 -");
+            Main_Stage.save.save();
+
+            Thread.Sleep(3500);
 
         }
 
@@ -202,7 +204,9 @@ namespace TxtRPG
             Player.Instance.max_hp -= 10;
             Player.Instance.now_hp = 10;
             Console.ResetColor();
-            Console.WriteLine($"현재 HP : {Player.Instance.now_hp} / {Player.Instance.max_hp}");
+            Console.WriteLine($"현재 HP : {Player.Instance.now_hp} / {Player.Instance.max_hp}\n");
+            Console.WriteLine("- 자동 저장됩니다 -");
+            Main_Stage.save.save();
             Thread.Sleep(2500);
         }
 

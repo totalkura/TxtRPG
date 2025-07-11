@@ -90,7 +90,7 @@ namespace TxtRPG
                 color_check = check_chat != 3 ? false : true;
                 color(color_check);
 
-                SlowWriteLine();
+                SlowwriteLine();
 
                 Console.WriteLine();
 
@@ -148,7 +148,7 @@ namespace TxtRPG
 
         }
 
-        void SlowWriteLine()
+        void SlowwriteLine()
         {
             Console.SetCursorPosition(85, 1);
             string text = "";
@@ -158,7 +158,7 @@ namespace TxtRPG
                 case -1: text = "..."; delay -= 40; break;
                 case 0: text = "정말 아름다운 날이야\n"; break;
                 case 1: text = "새들은 지저귀고, 꽃들은 피어나고..\n"; break;
-                case 2: text = "이런 날엔, 너 같은 Player 들은..\n"; break;
+                case 2: text = "이런 날엔, 너 같은 돈안내는 놈들은..\n"; break;
                 case 3: text = "지옥에서 불타고 있어야 하는데\n";  break;
                 default: text = "..."; delay -=40;  break;
             }
