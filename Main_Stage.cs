@@ -7,14 +7,12 @@ namespace TxtRPG
     {
         private static Main_Stage instance;
 
-        public  static Inventory inventory = new Inventory();
+        public static Inventory inventory = new Inventory();
         public static Status status = new Status();
         public static Stroe store = new Stroe();
         public static Inn inn = new Inn();
         public static Dungeon dungeon = new Dungeon();
         public static SaveLoad save = new SaveLoad();
-
-        
 
         static void Main()
         {
@@ -75,6 +73,14 @@ namespace TxtRPG
                     Console.WriteLine("4. 여관");
                     Console.WriteLine("5. 던전 입구");
                     Console.WriteLine("6. 저장\n");
+
+                    if (Player.Instance.max_hp < 0)
+                    {
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("* HP가 0 미만입니다 그냥 다시하세요 \n");
+                        Console.ResetColor();
+                    }
+
                     Console.Write("원하시는 행동을 입력해주세요\n>> ");
 
                     set = Console.ReadLine();

@@ -171,7 +171,7 @@ namespace TxtRPG
             Console.WriteLine("- 자동 저장됩니다 -");
             Main_Stage.save.save();
 
-            Thread.Sleep(3500);
+            Thread.Sleep(2500);
 
         }
 
