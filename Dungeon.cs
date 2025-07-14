@@ -117,7 +117,7 @@ namespace TxtRPG
                 Console.WriteLine("일반 던전을 클리어 하였습니다\n");
                 Player.Instance.now_hp -= random.Next(30 + (int)dam, 45 + (int)dam);
             }
-            else if (a == 2)
+            else if (a == 3)
             {
                 exps = 25;
                 golds = 2500;

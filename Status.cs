@@ -43,22 +43,13 @@ namespace TxtRPG
                 Console.ResetColor();
                 Console.WriteLine("캐릭터의 정보가 표시됩니다\n");
 
-                if (Player.Instance.level < 10)
-                    Console.WriteLine($"Lv : 0{Player.Instance.level}");
-                else
-                    Console.WriteLine($"Lv : {Player.Instance.level}");
+                Console.WriteLine($"Lv : {(Player.Instance.level < 10 ? $"0{Player.Instance.level}" : $"{Player.Instance.level}")}");
 
                 Console.WriteLine($"Chad( {Player.Instance.job} )");
 
-                if (Player.Instance.add_att > 0)
-                    Console.WriteLine($"공격력 : {Player.Instance.att} (+{Player.Instance.add_att}) ");
-                else
-                    Console.WriteLine($"공격력 : {Player.Instance.att}");
+                Console.WriteLine($"공격력 : {Player.Instance.att}{(Player.Instance.add_att > 0 ? $"(+{Player.Instance.add_att})":"")}");
 
-                if (Player.Instance.add_def > 0)
-                    Console.WriteLine($"방어력 : {Player.Instance.def} (+{Player.Instance.add_def}) ");
-                else
-                    Console.WriteLine($"방어력 : {Player.Instance.def}");
+                Console.WriteLine($"방어력 : {Player.Instance.def}{(Player.Instance.add_def > 0 ? $"(+{Player.Instance.add_def})" : "")}");
 
                 Console.WriteLine($"체  력 : {Player.Instance.now_hp} / {Player.Instance.max_hp} ");
                 Console.WriteLine($"Gold : {Player.Instance.gold}");
@@ -70,10 +61,7 @@ namespace TxtRPG
 
                 set = Console.ReadLine();
 
-                if (int.TryParse(set, out select))
-                {
-                    select = int.Parse(set);
-                }
+                select = OutRangeError.num_return(set, select);
 
                 if (select == 0) break;
                 else
@@ -93,7 +81,7 @@ namespace TxtRPG
             Player.Instance.now_hp = 100;
             Player.Instance.att = 10;
             Player.Instance.def = 5;
-            Player.Instance.gold = 1500;
+            Player.Instance.gold = 0;
             Player.Instance.job = "무직";
             Player.Instance.att_we = false;
             Player.Instance.def_def = false;

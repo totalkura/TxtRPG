@@ -26,10 +26,9 @@ namespace TxtRPG
                 Console.Write("원하시는 행동을 입력해 주세요.\n>>");
 
                 set = Console.ReadLine();
-                if (int.TryParse(set, out select))
-                {
-                    select = int.Parse(set);
-                }
+
+                select = OutRangeError.num_return(set, select);
+
 
                 if (select == 0) break;
 
